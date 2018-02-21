@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- BEGIN ROBOT 1-->
+  <group ns="robot1">
+    <node name="decentralized_controller" pkg="decentralized_controller" type="decentralized_controller" output="screen" args="1">
+      <rosparam param="position_in_formation" subst_value="True">[2.0, 0.0]</rosparam>
+      <rosparam param="initial_position" subst_value="True">[2.0, 2.0]</rosparam>
+      <!--<param name="position_in_formation" value="1.0"/>
+      <param name="initial_position" value="1.0"/>-->
+      <rosparam command="load" file="$(find decentralized_controller)/config/decentralized_controller.yaml" />
+    </node>
+  </group>
+
+  <!-- BEGIN ROBOT 2-->
+  <group ns="robot2">
+    <node name="decentralized_controller" pkg="decentralized_controller" type="decentralized_controller" output="screen" args="2">
+      <rosparam param="position_in_formation" subst_value="True">[3.9021, 1.3820]</rosparam>
+      <rosparam param="initial_position" subst_value="True">[4.0, -4.0]</rosparam>
+      <!--<param name="position_in_formation" value="1.0"/>
+      <param name="initial_position" value="1.0"/>-->
+      <rosparam command="load" file="$(find decentralized_controller)/config/decentralized_controller.yaml" />
+    </node>
+  </group>
+
+  <!-- BEGIN ROBOT 3-->
+  <group ns="robot3">
+    <node name="decentralized_controller" pkg="decentralized_controller" type="decentralized_controller" output="screen" args="3">
+      <rosparam param="position_in_formation" subst_value="True">[3.1756, 3.6180]</rosparam>
+      <rosparam param="initial_position" subst_value="True">[6.0, -4.0]</rosparam>
+      <!--<param name="position_in_formation" value="1.0"/>
+      <param name="initial_position" value="1.0"/>-->
+      <rosparam command="load" file="$(find decentralized_controller)/config/decentralized_controller.yaml" />
+    </node>
+  </group>
+</launch>

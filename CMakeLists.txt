@@ -9,13 +9,15 @@ add_definitions(--std=c++11)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  geometry_msgs
   roscpp
   rospy
+  message_generation
+  tf
   sensor_msgs
   std_msgs
-  tf
   visualization_msgs
+  geometry_msgs
+  move_base_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -52,17 +54,19 @@ find_package(catkin REQUIRED COMPONENTS
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
-# add_message_files(
-#   FILES
-#   Message1.msg
-#   Message2.msg
-# )
+add_message_files(
+  DIRECTORY
+      msg
+  FILES
+      Displacement.msg
+)
 
 ## Generate services in the 'srv' folder
 # add_service_files(
-#   FILES
-#   Service1.srv
-#   Service2.srv
+#  DIRECTORY
+#      srv
+#  FILES
+#      Displacement.srv
 # )
 
 ## Generate actions in the 'action' folder
@@ -73,10 +77,10 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
-#   std_msgs
-# )
+generate_messages(
+  DEPENDENCIES
+  std_msgs
+)
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -109,16 +113,19 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 	INCLUDE_DIRS 
-		include
+                include
 #  LIBRARIES 
 	CATKIN_DEPENDS 
-		geometry_msgs 
-		roscpp 
-		rospy 
-		sensor_msgs 
-		std_msgs 
-		tf 
-		visualization_msgs
+                roscpp
+                rospy
+                tf
+                message_runtime
+                actionlib
+                sensor_msgs
+                geometry_msgs
+                std_msgs
+                visualization_msgs
+                move_base_msgs
 #  DEPENDS system_lib
 )
 
@@ -129,19 +136,26 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-	 include
+         include
   	${catkin_INCLUDE_DIRS}
 )
 
+## Instruction to make qtcreator autocompletion work
+file(GLOB_RECURSE HEADERS */*.hpp */*.h)
+
 ## Declare a cpp library
-#add_library(${PROJECT_NAME}_core
-#   src/Algorithm.cpp
-#)
+add_library(${PROJECT_NAME}_core
+   src/DecentralizedController.cpp
+)
 
 ## Declare a C++ executable
 add_executable(${PROJECT_NAME}
+  # ${HEADERS} # for qtcreator...
   src/${PROJECT_NAME}_node.cpp
-  src/DecentralizedController.cpp
+)
+
+add_dependencies( ${PROJECT_NAME}
+                  ${PROJECT_NAME}_generate_messages_cpp
 )
 
 ## Specify libraries to link executable targets against
@@ -149,10 +163,10 @@ target_link_libraries(${PROJECT_NAME}
   ${catkin_LIBRARIES}
 )
 
-#target_link_libraries(${PROJECT_NAME}
-#  ${PROJECT_NAME}_core
-#  ${catkin_LIBRARIES}
-#)
+target_link_libraries(${PROJECT_NAME}
+  ${PROJECT_NAME}_core
+  ${catkin_LIBRARIES}
+)
 
 #############
 ## Install ##
@@ -173,11 +187,19 @@ install(
   FILES_MATCHING PATTERN "*.hpp"
 )
 
+install(DIRECTORY launch/
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/launch
+  FILES_MATCHING PATTERN "*.launch"
+  PATTERN ".svn" EXCLUDE)
+
 # Mark other files for installation
-install(
-  DIRECTORY doc
+install(FILES
+  LICENSE
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
+
+file(GLOB_RECURSE EXTRA_FILES */*)
+add_custom_target(${PROJECT_NAME}_OTHER_FILES ALL WORKING_DIRECTORY ${PROJECT_SOURCE_DIR} SOURCES ${EXTRA_FILES})
 
 #############
 ## Testing ##
