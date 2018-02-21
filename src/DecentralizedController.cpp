@@ -18,7 +18,7 @@ namespace decentralized_controller {
   std::string robot_id_s = &(robot_id);
   std::string robot_prefix = "/robot";
   std::string PubTopicName = robot_prefix + robot_id_s + "/displacement";
-  DispPublisher_ = nodeHandle_.advertise<decentralized_controller::Displacement>(PubTopicName, 100);
+  DispPublisher_ = nodeHandle_.advertise<decentralized_controller::Displacement_msgs>(PubTopicName, 100);
 
   std::string sIndx;
   std::string DispTopicName;
@@ -130,7 +130,7 @@ bool DecentralizedController::readParameters()
   return true;
 }
 
-void DecentralizedController::TopicCallback(const decentralized_controller::Displacement& message)
+void DecentralizedController::TopicCallback(const decentralized_controller::Displacement_msgs& message)
 {
   float x_disp, y_disp = 0.0;
 

@@ -58,7 +58,7 @@ add_message_files(
   DIRECTORY
       msg
   FILES
-      Displacement.msg
+      Displacement_msgs.msg
 )
 
 ## Generate services in the 'srv' folder
@@ -66,7 +66,7 @@ add_message_files(
 #  DIRECTORY
 #      srv
 #  FILES
-#      Displacement.srv
+#      Displacement_srv.srv
 # )
 
 ## Generate actions in the 'action' folder

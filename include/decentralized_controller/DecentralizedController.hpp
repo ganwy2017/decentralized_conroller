@@ -1,6 +1,6 @@
 #pragma once
 
-#include "decentralized_controller/Displacement.h"
+#include "decentralized_controller/Displacement_msgs.h"
 
 // ROS
 #include <ros/ros.h>
@@ -45,7 +45,7 @@ class DecentralizedController
    * ROS topic callback method.
    * @param message the received message.
    */
-  void TopicCallback(const decentralized_controller::Displacement& message);
+  void TopicCallback(const decentralized_controller::Displacement_msgs& message);
 
   //! ROS node handle.
   ros::NodeHandle& nodeHandle_;
@@ -60,10 +60,10 @@ class DecentralizedController
   std::vector<ros::Subscriber> vDispSubscriber_;
 
   //! Local version of the displacement message to deliver, obtained with the measured distances
-  decentralized_controller::Displacement realDisp;
+  decentralized_controller::Displacement_msgs realDisp;
 
   //! Local version of the displacement message to deliver, obtained as the discrete evolution of the algorithm
-  decentralized_controller::Displacement displacement;
+  decentralized_controller::Displacement_msgs displacement;
 
   //! Move base client to move the robot
   MoveBaseClient* pActionClient;
