@@ -32,7 +32,7 @@ class DecentralizedController
   /*!
    * Execute the publishing main cycle of the node.
    */
-  void Loop(int LoopRate);
+  void Loop(double LoopRate);
 
  private:
   /*!
@@ -76,11 +76,9 @@ class DecentralizedController
 
   //! Position in the formation of the agent
   std::vector<float> vfFormPos;
-  //float vfFormPos;
 
   //! Initial Position of the Agent
   std::vector<float> vfInitPos;
-  //float vfInitPos;
 
   //! Gain for the algorithm
   float fGain;

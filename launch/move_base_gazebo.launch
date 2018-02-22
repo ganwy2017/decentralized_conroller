@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- HERE WE CONFIGURE AND RUN THE MOVE BASE NODE WITH ITS PARAMETRS -->
 <launch>
-	<arg name="robot_description_path" />
+        <arg name="robot_description_path" />
 	<arg name="namespace_prefix" default="robot_namespace" />
 
 	<node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen" ns="$(arg namespace_prefix)" >
+                <param name="footprint_padding" value="0.01" />
+                <param name="controller_frequency" value="10.0" />
+                <param name="controller_patience" value="3.0" />
+
+                <param name="oscillation_timeout" value="30.0" />
+                <param name="oscillation_distance" value="0.5" />
 		<!-- Check out these parameters file if you need to change the cost maps -->
 		<rosparam file="$(find multirobot)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
 		<rosparam file="$(find multirobot)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />

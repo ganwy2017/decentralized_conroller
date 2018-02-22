@@ -1,5 +1,5 @@
 # the number of Agents present in the network
-number_of_agents: 3
+number_of_agents: 5
 
 # gain of the distributed algorithm
 algorithm_gain: 0.1

@@ -15,7 +15,7 @@ int main(int argc, char** argv)
 
   decentralized_controller::DecentralizedController DecentralizedController(nodeHandle, *robot_id);
 
-  DecentralizedController.Loop(2);
+  DecentralizedController.Loop(0.3);
 
   ros::spin();
   return 0;

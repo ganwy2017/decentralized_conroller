@@ -18,7 +18,7 @@ namespace decentralized_controller {
   std::string robot_id_s = &(robot_id);
   std::string robot_prefix = "/robot";
   std::string PubTopicName = robot_prefix + robot_id_s + "/displacement";
-  DispPublisher_ = nodeHandle_.advertise<decentralized_controller::Displacement_msgs>(PubTopicName, 100);
+  DispPublisher_ = nodeHandle_.advertise<decentralized_controller::Displacement_msgs>(PubTopicName, 1);
 
   std::string sIndx;
   std::string DispTopicName;
@@ -28,7 +28,7 @@ namespace decentralized_controller {
     if( strcmp(sIndx.c_str(), robot_id_s.c_str()) )
     {
       DispTopicName = robot_prefix + sIndx + "/displacement";
-      Subscriber_ith_ = nodeHandle_.subscribe(DispTopicName, 5,
+      Subscriber_ith_ = nodeHandle_.subscribe(DispTopicName, 10,
                                               &DecentralizedController::TopicCallback, this);
       vDispSubscriber_.push_back(Subscriber_ith_);
     }
@@ -56,10 +56,10 @@ namespace decentralized_controller {
 
 DecentralizedController::~DecentralizedController()
 {
-  //delete[] pActionClient;
+  delete[] pActionClient;
 }
 
-void DecentralizedController::Loop(int LoopRate)
+void DecentralizedController::Loop(double LoopRate)
 { 
   std::string robot_ns = "/robot";
   std::string robot_id_s = std::to_string(AgentIndx);

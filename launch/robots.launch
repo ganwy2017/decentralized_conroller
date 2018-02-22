@@ -10,6 +10,12 @@
         <arg name="init_pose_a" value="3.14"/>
         <arg name="robot_name"  value="robot1" />
     </include>
+    <include file="$(find decentralized_controller)/launch/decentralized_controller.launch" >
+        <arg name="init_position" value="[2.0, 2.0]" />
+	<arg name="form_position" value="[2.0, 0.0]" />
+        <arg name="robot_name"  value="robot1" />
+	<arg name="robot_index"  value="1" />
+    </include>
 
     <!-- BEGIN ROBOT 2 -->   
     <group ns="robot2">
@@ -20,6 +26,12 @@
         <arg name="init_pose_y" value="-4"/>
         <arg name="init_pose_a" value="3.14"/>
         <arg name="robot_name"  value="robot2" />
+    </include>
+    <include file="$(find decentralized_controller)/launch/decentralized_controller.launch" >
+        <arg name="init_position" value="[4.0, -4.0]" />
+	<arg name="form_position" value="[3.9021, 1.3820]" />
+        <arg name="robot_name"  value="robot2" />
+	<arg name="robot_index"  value="2" />
     </include>
 
     <!-- BEGIN ROBOT 3 -->   
@@ -32,9 +44,15 @@
         <arg name="init_pose_a" value="3.14"/>
         <arg name="robot_name"  value="robot3" />
     </include>
+    <include file="$(find decentralized_controller)/launch/decentralized_controller.launch" >
+        <arg name="init_position" value="[6.0, -4.0]" />
+	<arg name="form_position" value="[3.1756, 3.6180]" />
+        <arg name="robot_name"  value="robot3" />
+	<arg name="robot_index"  value="3" />
+    </include>
 
     <!-- BEGIN ROBOT 4 -->   
-    <!--<group ns="robot4">
+    <group ns="robot4">
         <param name="tf_prefix" value="robot4_tf" />
     </group>
     <include file="$(find decentralized_controller)/launch/one_robot.launch" >
@@ -42,10 +60,16 @@
         <arg name="init_pose_y" value="4"/>
         <arg name="init_pose_a" value="3.14"/>
         <arg name="robot_name"  value="robot4" />
-    </include>-->
+    </include>
+    <include file="$(find decentralized_controller)/launch/decentralized_controller.launch" >
+        <arg name="init_position" value="[-6.0, 4.0]" />
+	<arg name="form_position" value="[0.8244, 3.6180]" />
+        <arg name="robot_name"  value="robot4" />
+	<arg name="robot_index"  value="4" />
+    </include>
 
     <!-- BEGIN ROBOT 5 -->   
-    <!--<group ns="robot5">
+    <group ns="robot5">
         <param name="tf_prefix" value="robot5_tf" />
     </group>
     <include file="$(find decentralized_controller)/launch/one_robot.launch" >
@@ -53,5 +77,11 @@
         <arg name="init_pose_y" value="4"/>
         <arg name="init_pose_a" value="3.14"/>
         <arg name="robot_name"  value="robot5" />
-    </include>-->
+    </include>
+    <include file="$(find decentralized_controller)/launch/decentralized_controller.launch" >
+        <arg name="init_position" value="[6.0, 4.0]" />
+	<arg name="form_position" value="[0.0979, 1.3820]" />
+        <arg name="robot_name"  value="robot5" />
+	<arg name="robot_index"  value="5" />
+    </include>
 </launch>
